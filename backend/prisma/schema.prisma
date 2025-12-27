@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 
@@ -46,7 +45,6 @@ model User {
   posts         Post[]
   boards        Board[]
   settings      UserSetting?
-  notifications Notification[]
   likes       Like[]
   pins        Pin[]
   comments    Comment[]
@@ -55,6 +53,14 @@ model User {
   followers   Follow[]   @relation("Following")
   chats     ChatMember[]
   messages  Message[]
+  
+  friendsInitiated Friend[] @relation("FriendUser")
+  friendsReceived  Friend[] @relation("FriendTarget")
+
+  notificationsReceived Notification[] @relation("UserNotifications")
+  notificationsSent     Notification[] @relation("SentNotifications")
+
+  ownedChats  Chat[]
 
   @@unique([username, areaId])
 }
@@ -71,12 +77,12 @@ model Follow {
 }
 
 model Friend {
-  userId   Int
-  friendId Int
+  userId    Int
+  friendId  Int
   createdAt DateTime @default(now())
 
-  user   User @relation(fields: [userId], references: [id])
-  friend User @relation(fields: [friendId], references: [id])
+  user   User @relation("FriendUser", fields: [userId], references: [id])
+  friend User @relation("FriendTarget", fields: [friendId], references: [id])
 
   @@id([userId, friendId])
 }
@@ -201,14 +207,13 @@ model Notification {
   targetId  Int
   targetType TargetType
   isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
 
-  userId   Int
-  user     User @relation(fields: [userId], references: [id])
+  userId Int
+  user   User @relation("UserNotifications", fields: [userId], references: [id])
 
   senderId Int
-  sender   User @relation(fields: [senderId], references: [id])
-
-  createdAt DateTime @default(now())
+  sender   User @relation("SentNotifications", fields: [senderId], references: [id])
 }
 
 model UserSetting {
@@ -302,6 +307,7 @@ enum ReportType {
 }
 
 model ViewLog {
+  id         Int      @id @default(autoincrement())
   userId     Int?
   targetId   Int
   targetType TargetType
