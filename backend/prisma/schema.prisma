@@ -6,9 +6,376 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
+
+
+model Area {
+  id    Int       @id @default(autoincrement())
+  name  AreaName  @unique
+
+  users     User[]
+  contents  Content[]
+  posts     Post[]
+  boards    Board[]
+}
+
+enum AreaName {
+  China
+  America
+  Indonesia
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  username        String
+  passwordHash    String
+  profilePicture  String?
+  bio             String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  areaId Int
+  area   Area @relation(fields: [areaId], references: [id])
+
+  contents      Content[]
+  posts         Post[]
+  boards        Board[]
+  settings      UserSetting?
+  notifications Notification[]
+  likes       Like[]
+  pins        Pin[]
+  comments    Comment[]
+  reports     Report[]
+  follows     Follow[]   @relation("Follower")
+  followers   Follow[]   @relation("Following")
+  chats     ChatMember[]
+  messages  Message[]
+
+  @@unique([username, areaId])
+}
+
+model Follow {
+  followerId  Int
+  followingId Int
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("Follower", fields: [followerId], references: [id])
+  following User @relation("Following", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
+}
+
+model Friend {
+  userId   Int
+  friendId Int
+  createdAt DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id])
+  friend User @relation(fields: [friendId], references: [id])
+
+  @@id([userId, friendId])
+}
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  type        ContentType
+  isPrivate   Boolean  @default(false)
+  status      PublishStatus @default(DRAFT)
+  thumbnail   String?
+  viewCount   Int      @default(0)
+  popularity  Float    @default(0)
+
+  creatorId Int
+  creator   User @relation(fields: [creatorId], references: [id])
+
+  areaId Int
+  area   Area @relation(fields: [areaId], references: [id])
+
+  media       ContentMedia[]
+  createdAt   DateTime @default(now())
+  publishedAt DateTime?
+
+  @@index([areaId])
+  @@index([creatorId])
+  @@index([popularity])
+}
+
+model ContentMedia {
+  id        Int    @id @default(autoincrement())
+  mediaUrl  String
+  mediaType MediaType
+
+  contentId Int
+  content   Content @relation(fields: [contentId], references: [id])
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  status      PublishStatus @default(DRAFT)
+  viewCount   Int      @default(0)
+  popularity  Float    @default(0)
+
+  creatorId Int
+  creator   User @relation(fields: [creatorId], references: [id])
+
+  areaId Int
+  area   Area @relation(fields: [areaId], references: [id])
+
+  parentPostId Int?
+  parentPost   Post? @relation("PostReplies", fields: [parentPostId], references: [id])
+  replies      Post[] @relation("PostReplies")
+
+  media       PostMedia[]
+  createdAt   DateTime @default(now())
+  publishedAt DateTime?
+
+  @@index([areaId])
+  @@index([creatorId])
+  @@index([popularity])
+}
+
+model PostMedia {
+  id        Int    @id @default(autoincrement())
+  mediaUrl  String
+  mediaType MediaType
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id])
+}
+
+enum ContentType {
+  image
+  video
+}
+
+enum MediaType {
+  image
+  video
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Board {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  thumbnail   String?
+  isPrivate   Boolean @default(false)
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  areaId Int
+  area   Area @relation(fields: [areaId], references: [id])
+
+  items      BoardItem[]
+  createdAt  DateTime @default(now())
+}
+
+model BoardItem {
+  boardId   Int
+  targetId  Int
+  targetType TargetType
+  createdAt DateTime @default(now())
+
+  board Board @relation(fields: [boardId], references: [id])
+
+  @@id([boardId, targetType, targetId])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  type      NotificationType
+  targetId  Int
+  targetType TargetType
+  isRead    Boolean  @default(false)
+
+  userId   Int
+  user     User @relation(fields: [userId], references: [id])
+
+  senderId Int
+  sender   User @relation(fields: [senderId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model UserSetting {
+  userId Int @id
+
+  notifyLike    Boolean @default(true)
+  notifyComment Boolean @default(true)
+  notifyFollow  Boolean @default(true)
+
+  showLikes     Boolean @default(true)
+  showPins      Boolean @default(true)
+  showContents  Boolean @default(true)
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum TargetType {
+  content
+  post
+  user
+}
+
+enum NotificationType {
+  like
+  comment
+  follow
+}
+
+model Like {
+  userId     Int
+  targetId   Int
+  targetType TargetType
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([userId, targetType, targetId])
+  @@index([targetType, targetId])
+}
+
+model Pin {
+  userId     Int
+  targetId   Int
+  targetType TargetType
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([userId, targetType, targetId])
+  @@index([targetType, targetId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  targetId   Int
+  targetType TargetType
+
+  parentCommentId Int?
+  parentComment   Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         Comment[] @relation("CommentReplies")
+
+  @@index([targetType, targetId])
+}
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  description String
+  createdAt   DateTime @default(now())
+
+  reportType ReportType
+
+  reporterId Int
+  reporter   User @relation(fields: [reporterId], references: [id])
+
+  targetId   Int
+  targetType TargetType
+
+  @@index([targetType, targetId])
+}
+
+enum ReportType {
+  abuse
+  misinformation
+  spam
+}
+
+model ViewLog {
+  userId     Int?
+  targetId   Int
+  targetType TargetType
+  createdAt  DateTime @default(now())
+
+  @@index([targetType, targetId])
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  type      ChatType
+  name      String?
+  thumbnail String?
+  createdAt DateTime  @default(now())
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  parentCommunityId Int?
+  parentCommunity   Chat? @relation("CommunityGroups", fields: [parentCommunityId], references: [id])
+  groups            Chat[] @relation("CommunityGroups")
+
+  members  ChatMember[]
+  messages Message[]
+}
+
+
+enum ChatType {
+  DIRECT
+  GROUP
+  COMMUNITY
+}
+
+model ChatMember {
+  chatId   Int
+  userId   Int
+  role     ChatRole
+  joinedAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([chatId, userId])
+  @@index([userId])
+}
+
+enum ChatRole {
+  OWNER
+  MEMBER
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String?
+  createdAt DateTime @default(now())
+
+  chatId Int
+  chat   Chat @relation(fields: [chatId], references: [id])
+
+  senderId Int
+  sender   User @relation(fields: [senderId], references: [id])
+
+  media MessageMedia[]
+
+  @@index([chatId])
+  @@index([senderId])
+}
+
+model MessageMedia {
+  id        Int    @id @default(autoincrement())
+  mediaUrl  String
+  mediaType MediaType
+
+  messageId Int
+  message   Message @relation(fields: [messageId], references: [id])
+}
+
