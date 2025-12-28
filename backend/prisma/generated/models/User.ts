@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model User
@@ -45,6 +45,7 @@ export type UserMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   areaId: number | null
+  refreshToken: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type UserMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   areaId: number | null
+  refreshToken: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -67,6 +69,7 @@ export type UserCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   areaId: number
+  refreshToken: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type UserMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   areaId?: true
+  refreshToken?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -101,6 +105,7 @@ export type UserMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   areaId?: true
+  refreshToken?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -112,6 +117,7 @@ export type UserCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   areaId?: true
+  refreshToken?: true
   _all?: true
 }
 
@@ -210,6 +216,7 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   areaId: number
+  refreshToken: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -244,6 +251,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   areaId?: Prisma.IntFilter<"User"> | number
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
   contents?: Prisma.ContentListRelationFilter
   posts?: Prisma.PostListRelationFilter
@@ -273,6 +281,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   area?: Prisma.AreaOrderByWithRelationInput
   contents?: Prisma.ContentOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
@@ -307,6 +316,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   areaId?: Prisma.IntFilter<"User"> | number
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
   contents?: Prisma.ContentListRelationFilter
   posts?: Prisma.PostListRelationFilter
@@ -336,6 +346,7 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -355,6 +366,7 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   areaId?: Prisma.IntWithAggregatesFilter<"User"> | number
+  refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -364,6 +376,7 @@ export type UserCreateInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -393,6 +406,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -419,6 +433,7 @@ export type UserUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -448,6 +463,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -476,6 +492,7 @@ export type UserCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -485,6 +502,7 @@ export type UserUpdateManyMutationInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -496,6 +514,7 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserListRelationFilter = {
@@ -528,6 +547,7 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -544,6 +564,7 @@ export type UserMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -555,6 +576,7 @@ export type UserMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -866,6 +888,7 @@ export type UserCreateWithoutAreaInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
@@ -893,6 +916,7 @@ export type UserUncheckedCreateWithoutAreaInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -950,6 +974,7 @@ export type UserScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   areaId?: Prisma.IntFilter<"User"> | number
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
 export type UserCreateWithoutFollowsInput = {
@@ -959,6 +984,7 @@ export type UserCreateWithoutFollowsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -987,6 +1013,7 @@ export type UserUncheckedCreateWithoutFollowsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1017,6 +1044,7 @@ export type UserCreateWithoutFollowersInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1045,6 +1073,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1086,6 +1115,7 @@ export type UserUpdateWithoutFollowsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1114,6 +1144,7 @@ export type UserUncheckedUpdateWithoutFollowsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1150,6 +1181,7 @@ export type UserUpdateWithoutFollowersInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1178,6 +1210,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1203,6 +1236,7 @@ export type UserCreateWithoutFriendsInitiatedInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1231,6 +1265,7 @@ export type UserUncheckedCreateWithoutFriendsInitiatedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1261,6 +1296,7 @@ export type UserCreateWithoutFriendsReceivedInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1289,6 +1325,7 @@ export type UserUncheckedCreateWithoutFriendsReceivedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1330,6 +1367,7 @@ export type UserUpdateWithoutFriendsInitiatedInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1358,6 +1396,7 @@ export type UserUncheckedUpdateWithoutFriendsInitiatedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1394,6 +1433,7 @@ export type UserUpdateWithoutFriendsReceivedInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1422,6 +1462,7 @@ export type UserUncheckedUpdateWithoutFriendsReceivedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1447,6 +1488,7 @@ export type UserCreateWithoutContentsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
@@ -1475,6 +1517,7 @@ export type UserUncheckedCreateWithoutContentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
   settings?: Prisma.UserSettingUncheckedCreateNestedOneWithoutUserInput
@@ -1516,6 +1559,7 @@ export type UserUpdateWithoutContentsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
@@ -1544,6 +1588,7 @@ export type UserUncheckedUpdateWithoutContentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
   settings?: Prisma.UserSettingUncheckedUpdateOneWithoutUserNestedInput
@@ -1569,6 +1614,7 @@ export type UserCreateWithoutPostsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardCreateNestedManyWithoutOwnerInput
@@ -1597,6 +1643,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
   settings?: Prisma.UserSettingUncheckedCreateNestedOneWithoutUserInput
@@ -1638,6 +1685,7 @@ export type UserUpdateWithoutPostsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
@@ -1666,6 +1714,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
   settings?: Prisma.UserSettingUncheckedUpdateOneWithoutUserNestedInput
@@ -1691,6 +1740,7 @@ export type UserCreateWithoutBoardsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1719,6 +1769,7 @@ export type UserUncheckedCreateWithoutBoardsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   settings?: Prisma.UserSettingUncheckedCreateNestedOneWithoutUserInput
@@ -1760,6 +1811,7 @@ export type UserUpdateWithoutBoardsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1788,6 +1840,7 @@ export type UserUncheckedUpdateWithoutBoardsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   settings?: Prisma.UserSettingUncheckedUpdateOneWithoutUserNestedInput
@@ -1813,6 +1866,7 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1841,6 +1895,7 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1871,6 +1926,7 @@ export type UserCreateWithoutNotificationsSentInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -1899,6 +1955,7 @@ export type UserUncheckedCreateWithoutNotificationsSentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -1940,6 +1997,7 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -1968,6 +2026,7 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2004,6 +2063,7 @@ export type UserUpdateWithoutNotificationsSentInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2032,6 +2092,7 @@ export type UserUncheckedUpdateWithoutNotificationsSentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2057,6 +2118,7 @@ export type UserCreateWithoutSettingsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2085,6 +2147,7 @@ export type UserUncheckedCreateWithoutSettingsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2126,6 +2189,7 @@ export type UserUpdateWithoutSettingsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2154,6 +2218,7 @@ export type UserUncheckedUpdateWithoutSettingsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2179,6 +2244,7 @@ export type UserCreateWithoutLikesInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2207,6 +2273,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2248,6 +2315,7 @@ export type UserUpdateWithoutLikesInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2276,6 +2344,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2301,6 +2370,7 @@ export type UserCreateWithoutPinsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2329,6 +2399,7 @@ export type UserUncheckedCreateWithoutPinsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2370,6 +2441,7 @@ export type UserUpdateWithoutPinsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2398,6 +2470,7 @@ export type UserUncheckedUpdateWithoutPinsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2423,6 +2496,7 @@ export type UserCreateWithoutCommentsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2451,6 +2525,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2492,6 +2567,7 @@ export type UserUpdateWithoutCommentsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2520,6 +2596,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2545,6 +2622,7 @@ export type UserCreateWithoutReportsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2573,6 +2651,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2614,6 +2693,7 @@ export type UserUpdateWithoutReportsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2642,6 +2722,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2667,6 +2748,7 @@ export type UserCreateWithoutOwnedChatsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2695,6 +2777,7 @@ export type UserUncheckedCreateWithoutOwnedChatsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2736,6 +2819,7 @@ export type UserUpdateWithoutOwnedChatsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2764,6 +2848,7 @@ export type UserUncheckedUpdateWithoutOwnedChatsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2789,6 +2874,7 @@ export type UserCreateWithoutChatsInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2817,6 +2903,7 @@ export type UserUncheckedCreateWithoutChatsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2858,6 +2945,7 @@ export type UserUpdateWithoutChatsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -2886,6 +2974,7 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -2911,6 +3000,7 @@ export type UserCreateWithoutMessagesInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
   area: Prisma.AreaCreateNestedOneWithoutUsersInput
   contents?: Prisma.ContentCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostCreateNestedManyWithoutCreatorInput
@@ -2939,6 +3029,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   areaId: number
+  refreshToken?: string | null
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutCreatorInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatorInput
   boards?: Prisma.BoardUncheckedCreateNestedManyWithoutOwnerInput
@@ -2980,6 +3071,7 @@ export type UserUpdateWithoutMessagesInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutUsersNestedInput
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
@@ -3008,6 +3100,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -3034,6 +3127,7 @@ export type UserCreateManyAreaInput = {
   bio?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshToken?: string | null
 }
 
 export type UserUpdateWithoutAreaInput = {
@@ -3043,6 +3137,7 @@ export type UserUpdateWithoutAreaInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUpdateManyWithoutOwnerNestedInput
@@ -3070,6 +3165,7 @@ export type UserUncheckedUpdateWithoutAreaInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contents?: Prisma.ContentUncheckedUpdateManyWithoutCreatorNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutCreatorNestedInput
   boards?: Prisma.BoardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -3097,6 +3193,7 @@ export type UserUncheckedUpdateManyWithoutAreaInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -3274,6 +3371,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   areaId?: boolean
+  refreshToken?: boolean
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
@@ -3306,9 +3404,10 @@ export type UserSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   areaId?: boolean
+  refreshToken?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "passwordHash" | "profilePicture" | "bio" | "createdAt" | "updatedAt" | "areaId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "passwordHash" | "profilePicture" | "bio" | "createdAt" | "updatedAt" | "areaId" | "refreshToken", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
@@ -3362,6 +3461,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     areaId: number
+    refreshToken: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -3757,6 +3857,7 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly areaId: Prisma.FieldRef<"User", 'Int'>
+  readonly refreshToken: Prisma.FieldRef<"User", 'String'>
 }
     
 
