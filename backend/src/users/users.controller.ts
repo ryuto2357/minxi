@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthUser, CurrentUser } from 'src/auth/decorators/current-user.decorator';
@@ -24,5 +24,23 @@ export class UsersController {
     @Post(":id/follow")
     followUser(@CurrentUser() user: AuthUser, @Param("id", ParseIntPipe) targetUserId: number) {
         return this.usersService.followUser(user, targetUserId);
+    }
+
+    @UseGuards(AuthGuard("jwt"))
+    @Delete(":id/follow")
+    unfollowUser(@CurrentUser() user: AuthUser, @Param("id", ParseIntPipe) targetUserId: number) {
+        return this.usersService.unfollowUser(user, targetUserId);
+    }
+
+    @UseGuards(AuthGuard("jwt"))
+    @Get(":id/followers")
+    getFollowers(@CurrentUser() user: AuthUser, @Param("id", ParseIntPipe) targetUserId: number) {
+        return this.usersService.getFollowers(user, targetUserId);
+    }
+
+    @UseGuards(AuthGuard("jwt"))
+    @Get(":id/following")
+    getFollowing(@CurrentUser() user: AuthUser, @Param("id", ParseIntPipe) targetUserId: number) {
+        return this.usersService.getFollowing(user, targetUserId);
     }
 }
