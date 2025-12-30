@@ -55,7 +55,6 @@ export type PostMinAggregateOutputType = {
   areaId: number | null
   parentPostId: number | null
   createdAt: Date | null
-  publishedAt: Date | null
 }
 
 export type PostMaxAggregateOutputType = {
@@ -69,7 +68,6 @@ export type PostMaxAggregateOutputType = {
   areaId: number | null
   parentPostId: number | null
   createdAt: Date | null
-  publishedAt: Date | null
 }
 
 export type PostCountAggregateOutputType = {
@@ -83,7 +81,6 @@ export type PostCountAggregateOutputType = {
   areaId: number
   parentPostId: number
   createdAt: number
-  publishedAt: number
   _all: number
 }
 
@@ -117,7 +114,6 @@ export type PostMinAggregateInputType = {
   areaId?: true
   parentPostId?: true
   createdAt?: true
-  publishedAt?: true
 }
 
 export type PostMaxAggregateInputType = {
@@ -131,7 +127,6 @@ export type PostMaxAggregateInputType = {
   areaId?: true
   parentPostId?: true
   createdAt?: true
-  publishedAt?: true
 }
 
 export type PostCountAggregateInputType = {
@@ -145,7 +140,6 @@ export type PostCountAggregateInputType = {
   areaId?: true
   parentPostId?: true
   createdAt?: true
-  publishedAt?: true
   _all?: true
 }
 
@@ -246,7 +240,6 @@ export type PostGroupByOutputType = {
   areaId: number
   parentPostId: number | null
   createdAt: Date
-  publishedAt: Date | null
   _count: PostCountAggregateOutputType | null
   _avg: PostAvgAggregateOutputType | null
   _sum: PostSumAggregateOutputType | null
@@ -283,7 +276,6 @@ export type PostWhereInput = {
   areaId?: Prisma.IntFilter<"Post"> | number
   parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
-  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
   parentPost?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
@@ -302,7 +294,6 @@ export type PostOrderByWithRelationInput = {
   areaId?: Prisma.SortOrder
   parentPostId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   creator?: Prisma.UserOrderByWithRelationInput
   area?: Prisma.AreaOrderByWithRelationInput
   parentPost?: Prisma.PostOrderByWithRelationInput
@@ -325,7 +316,6 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   areaId?: Prisma.IntFilter<"Post"> | number
   parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
-  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
   parentPost?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
@@ -344,7 +334,6 @@ export type PostOrderByWithAggregationInput = {
   areaId?: Prisma.SortOrder
   parentPostId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PostCountOrderByAggregateInput
   _avg?: Prisma.PostAvgOrderByAggregateInput
   _max?: Prisma.PostMaxOrderByAggregateInput
@@ -366,7 +355,6 @@ export type PostScalarWhereWithAggregatesInput = {
   areaId?: Prisma.IntWithAggregatesFilter<"Post"> | number
   parentPostId?: Prisma.IntNullableWithAggregatesFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
-  publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
 }
 
 export type PostCreateInput = {
@@ -376,7 +364,6 @@ export type PostCreateInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
   parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
@@ -395,7 +382,6 @@ export type PostUncheckedCreateInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
 }
@@ -407,7 +393,6 @@ export type PostUpdateInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
   parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
@@ -426,7 +411,6 @@ export type PostUncheckedUpdateInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -442,7 +426,6 @@ export type PostCreateManyInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
 }
 
 export type PostUpdateManyMutationInput = {
@@ -452,7 +435,6 @@ export type PostUpdateManyMutationInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostUncheckedUpdateManyInput = {
@@ -466,7 +448,6 @@ export type PostUncheckedUpdateManyInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostListRelationFilter = {
@@ -501,7 +482,6 @@ export type PostCountOrderByAggregateInput = {
   areaId?: Prisma.SortOrder
   parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  publishedAt?: Prisma.SortOrder
 }
 
 export type PostAvgOrderByAggregateInput = {
@@ -524,7 +504,6 @@ export type PostMaxOrderByAggregateInput = {
   areaId?: Prisma.SortOrder
   parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  publishedAt?: Prisma.SortOrder
 }
 
 export type PostMinOrderByAggregateInput = {
@@ -538,7 +517,6 @@ export type PostMinOrderByAggregateInput = {
   areaId?: Prisma.SortOrder
   parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  publishedAt?: Prisma.SortOrder
 }
 
 export type PostSumOrderByAggregateInput = {
@@ -726,7 +704,6 @@ export type PostCreateWithoutAreaInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
   replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
@@ -743,7 +720,6 @@ export type PostUncheckedCreateWithoutAreaInput = {
   creatorId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
 }
@@ -788,7 +764,6 @@ export type PostScalarWhereInput = {
   areaId?: Prisma.IntFilter<"Post"> | number
   parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
-  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
 }
 
 export type PostCreateWithoutCreatorInput = {
@@ -798,7 +773,6 @@ export type PostCreateWithoutCreatorInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
   parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
   replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
@@ -815,7 +789,6 @@ export type PostUncheckedCreateWithoutCreatorInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
 }
@@ -853,7 +826,6 @@ export type PostCreateWithoutRepliesInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
   parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
@@ -871,7 +843,6 @@ export type PostUncheckedCreateWithoutRepliesInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
 }
 
@@ -887,7 +858,6 @@ export type PostCreateWithoutParentPostInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
   replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
@@ -904,7 +874,6 @@ export type PostUncheckedCreateWithoutParentPostInput = {
   creatorId: number
   areaId: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
 }
@@ -937,7 +906,6 @@ export type PostUpdateWithoutRepliesInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
   parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
@@ -955,7 +923,6 @@ export type PostUncheckedUpdateWithoutRepliesInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
 }
 
@@ -982,7 +949,6 @@ export type PostCreateWithoutMediaInput = {
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
   parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
@@ -1000,7 +966,6 @@ export type PostUncheckedCreateWithoutMediaInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
   replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
 }
 
@@ -1027,7 +992,6 @@ export type PostUpdateWithoutMediaInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
   parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
@@ -1045,7 +1009,6 @@ export type PostUncheckedUpdateWithoutMediaInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
 }
 
@@ -1059,7 +1022,6 @@ export type PostCreateManyAreaInput = {
   creatorId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
 }
 
 export type PostUpdateWithoutAreaInput = {
@@ -1069,7 +1031,6 @@ export type PostUpdateWithoutAreaInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
@@ -1086,7 +1047,6 @@ export type PostUncheckedUpdateWithoutAreaInput = {
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1101,7 +1061,6 @@ export type PostUncheckedUpdateManyWithoutAreaInput = {
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostCreateManyCreatorInput = {
@@ -1114,7 +1073,6 @@ export type PostCreateManyCreatorInput = {
   areaId: number
   parentPostId?: number | null
   createdAt?: Date | string
-  publishedAt?: Date | string | null
 }
 
 export type PostUpdateWithoutCreatorInput = {
@@ -1124,7 +1082,6 @@ export type PostUpdateWithoutCreatorInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
   parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
@@ -1141,7 +1098,6 @@ export type PostUncheckedUpdateWithoutCreatorInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1156,7 +1112,6 @@ export type PostUncheckedUpdateManyWithoutCreatorInput = {
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostCreateManyParentPostInput = {
@@ -1169,7 +1124,6 @@ export type PostCreateManyParentPostInput = {
   creatorId: number
   areaId: number
   createdAt?: Date | string
-  publishedAt?: Date | string | null
 }
 
 export type PostUpdateWithoutParentPostInput = {
@@ -1179,7 +1133,6 @@ export type PostUpdateWithoutParentPostInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
   replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
@@ -1196,7 +1149,6 @@ export type PostUncheckedUpdateWithoutParentPostInput = {
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1211,7 +1163,6 @@ export type PostUncheckedUpdateManyWithoutParentPostInput = {
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1265,7 +1216,6 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   areaId?: boolean
   parentPostId?: boolean
   createdAt?: boolean
-  publishedAt?: boolean
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
   parentPost?: boolean | Prisma.Post$parentPostArgs<ExtArgs>
@@ -1287,10 +1237,9 @@ export type PostSelectScalar = {
   areaId?: boolean
   parentPostId?: boolean
   createdAt?: boolean
-  publishedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "viewCount" | "popularity" | "creatorId" | "areaId" | "parentPostId" | "createdAt" | "publishedAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "viewCount" | "popularity" | "creatorId" | "areaId" | "parentPostId" | "createdAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
@@ -1320,7 +1269,6 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     areaId: number
     parentPostId: number | null
     createdAt: Date
-    publishedAt: Date | null
   }, ExtArgs["result"]["post"]>
   composites: {}
 }
@@ -1705,7 +1653,6 @@ export interface PostFieldRefs {
   readonly areaId: Prisma.FieldRef<"Post", 'Int'>
   readonly parentPostId: Prisma.FieldRef<"Post", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
-  readonly publishedAt: Prisma.FieldRef<"Post", 'DateTime'>
 }
     
 

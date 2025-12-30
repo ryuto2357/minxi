@@ -4,6 +4,7 @@ import { ContentService } from './content.service';
 import { AuthUser, CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 
 @UseGuards(AuthGuard("jwt"))
 @Controller('contents')
@@ -16,22 +17,44 @@ export class ContentController {
     }
 
     @Patch(":id")
-    updateContent(@CurrentUser() user: AuthUser, @Param("id") contentId: number, @Body() updateContentDto: UpdateContentDto) {
+    updateContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string, @Body() updateContentDto: UpdateContentDto) {
         return this.contentService.updateContent(user, +contentId, updateContentDto);
     }
 
     @Get("feed")
-    getFeed(@CurrentUser() user: AuthUser, @Query("page") page: number, @Query("limit") limit: number) {
+    getFeed(@CurrentUser() user: AuthUser, @Query("page") page: string = "1", @Query("limit") limit: string = "10") {
         return this.contentService.getFeed(user, +page, +limit);
     }
 
     @Get("me")
-    getMyContent(@CurrentUser() user: AuthUser) {
-        return this.contentService.getMyContent(user);
+    getMyContents(@CurrentUser() user: AuthUser) {
+        return this.contentService.getMyContents(user);
     }
 
     @Delete(":id")
-    deleteContent(@CurrentUser() user: AuthUser, @Param("id") contentId: number) {
+    deleteContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
         return this.contentService.deleteContent(user, +contentId);
+    }
+
+
+    @Post(":id/like")
+    likeContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
+        return this.contentService.likeContent(user, +contentId);
+    }
+
+    @Delete(":id/like")
+    unlikeContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
+        return this.contentService.unlikeContent(user, +contentId);
+    }
+
+
+    @Post(":id/comments")
+    addComment(@CurrentUser() user: AuthUser, @Param("id") contentId: string, @Body() createCommentDto: CreateCommentDto) {
+        return this.contentService.addComment(user, +contentId, createCommentDto);
+    }
+
+    @Get(":id/comments")
+    getComments(@Param("id") contentId: string) {
+        return this.contentService.getComments(+contentId);
     }
 }

@@ -57,16 +57,16 @@ export const ModelName = {
   Friend: 'Friend',
   Content: 'Content',
   ContentMedia: 'ContentMedia',
+  ContentLike: 'ContentLike',
+  ContentComment: 'ContentComment',
+  ContentPin: 'ContentPin',
+  ContentReport: 'ContentReport',
   Post: 'Post',
   PostMedia: 'PostMedia',
   Board: 'Board',
   BoardItem: 'BoardItem',
   Notification: 'Notification',
   UserSetting: 'UserSetting',
-  Like: 'Like',
-  Pin: 'Pin',
-  Comment: 'Comment',
-  Report: 'Report',
   ViewLog: 'ViewLog',
   Chat: 'Chat',
   ChatMember: 'ChatMember',
@@ -143,8 +143,7 @@ export const ContentScalarFieldEnum = {
   popularity: 'popularity',
   creatorId: 'creatorId',
   areaId: 'areaId',
-  createdAt: 'createdAt',
-  publishedAt: 'publishedAt'
+  createdAt: 'createdAt'
 } as const
 
 export type ContentScalarFieldEnum = (typeof ContentScalarFieldEnum)[keyof typeof ContentScalarFieldEnum]
@@ -160,6 +159,47 @@ export const ContentMediaScalarFieldEnum = {
 export type ContentMediaScalarFieldEnum = (typeof ContentMediaScalarFieldEnum)[keyof typeof ContentMediaScalarFieldEnum]
 
 
+export const ContentLikeScalarFieldEnum = {
+  userId: 'userId',
+  contentId: 'contentId',
+  createdAt: 'createdAt'
+} as const
+
+export type ContentLikeScalarFieldEnum = (typeof ContentLikeScalarFieldEnum)[keyof typeof ContentLikeScalarFieldEnum]
+
+
+export const ContentCommentScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  contentId: 'contentId'
+} as const
+
+export type ContentCommentScalarFieldEnum = (typeof ContentCommentScalarFieldEnum)[keyof typeof ContentCommentScalarFieldEnum]
+
+
+export const ContentPinScalarFieldEnum = {
+  userId: 'userId',
+  contentId: 'contentId',
+  createdAt: 'createdAt'
+} as const
+
+export type ContentPinScalarFieldEnum = (typeof ContentPinScalarFieldEnum)[keyof typeof ContentPinScalarFieldEnum]
+
+
+export const ContentReportScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  reporterId: 'reporterId',
+  contentId: 'contentId'
+} as const
+
+export type ContentReportScalarFieldEnum = (typeof ContentReportScalarFieldEnum)[keyof typeof ContentReportScalarFieldEnum]
+
+
 export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -170,8 +210,7 @@ export const PostScalarFieldEnum = {
   creatorId: 'creatorId',
   areaId: 'areaId',
   parentPostId: 'parentPostId',
-  createdAt: 'createdAt',
-  publishedAt: 'publishedAt'
+  createdAt: 'createdAt'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -236,52 +275,6 @@ export const UserSettingScalarFieldEnum = {
 } as const
 
 export type UserSettingScalarFieldEnum = (typeof UserSettingScalarFieldEnum)[keyof typeof UserSettingScalarFieldEnum]
-
-
-export const LikeScalarFieldEnum = {
-  userId: 'userId',
-  targetId: 'targetId',
-  targetType: 'targetType',
-  createdAt: 'createdAt'
-} as const
-
-export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
-
-
-export const PinScalarFieldEnum = {
-  userId: 'userId',
-  targetId: 'targetId',
-  targetType: 'targetType',
-  createdAt: 'createdAt'
-} as const
-
-export type PinScalarFieldEnum = (typeof PinScalarFieldEnum)[keyof typeof PinScalarFieldEnum]
-
-
-export const CommentScalarFieldEnum = {
-  id: 'id',
-  message: 'message',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  targetId: 'targetId',
-  targetType: 'targetType',
-  parentCommentId: 'parentCommentId'
-} as const
-
-export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
-
-
-export const ReportScalarFieldEnum = {
-  id: 'id',
-  description: 'description',
-  createdAt: 'createdAt',
-  reportType: 'reportType',
-  reporterId: 'reporterId',
-  targetId: 'targetId',
-  targetType: 'targetType'
-} as const
-
-export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
 export const ViewLogScalarFieldEnum = {
@@ -382,6 +375,20 @@ export const ContentMediaOrderByRelevanceFieldEnum = {
 export type ContentMediaOrderByRelevanceFieldEnum = (typeof ContentMediaOrderByRelevanceFieldEnum)[keyof typeof ContentMediaOrderByRelevanceFieldEnum]
 
 
+export const ContentCommentOrderByRelevanceFieldEnum = {
+  message: 'message'
+} as const
+
+export type ContentCommentOrderByRelevanceFieldEnum = (typeof ContentCommentOrderByRelevanceFieldEnum)[keyof typeof ContentCommentOrderByRelevanceFieldEnum]
+
+
+export const ContentReportOrderByRelevanceFieldEnum = {
+  description: 'description'
+} as const
+
+export type ContentReportOrderByRelevanceFieldEnum = (typeof ContentReportOrderByRelevanceFieldEnum)[keyof typeof ContentReportOrderByRelevanceFieldEnum]
+
+
 export const PostOrderByRelevanceFieldEnum = {
   title: 'title',
   description: 'description'
@@ -404,20 +411,6 @@ export const BoardOrderByRelevanceFieldEnum = {
 } as const
 
 export type BoardOrderByRelevanceFieldEnum = (typeof BoardOrderByRelevanceFieldEnum)[keyof typeof BoardOrderByRelevanceFieldEnum]
-
-
-export const CommentOrderByRelevanceFieldEnum = {
-  message: 'message'
-} as const
-
-export type CommentOrderByRelevanceFieldEnum = (typeof CommentOrderByRelevanceFieldEnum)[keyof typeof CommentOrderByRelevanceFieldEnum]
-
-
-export const ReportOrderByRelevanceFieldEnum = {
-  description: 'description'
-} as const
-
-export type ReportOrderByRelevanceFieldEnum = (typeof ReportOrderByRelevanceFieldEnum)[keyof typeof ReportOrderByRelevanceFieldEnum]
 
 
 export const ChatOrderByRelevanceFieldEnum = {

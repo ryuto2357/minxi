@@ -68,6 +68,26 @@ export type Content = Prisma.ContentModel
  */
 export type ContentMedia = Prisma.ContentMediaModel
 /**
+ * Model ContentLike
+ * 
+ */
+export type ContentLike = Prisma.ContentLikeModel
+/**
+ * Model ContentComment
+ * 
+ */
+export type ContentComment = Prisma.ContentCommentModel
+/**
+ * Model ContentPin
+ * 
+ */
+export type ContentPin = Prisma.ContentPinModel
+/**
+ * Model ContentReport
+ * 
+ */
+export type ContentReport = Prisma.ContentReportModel
+/**
  * Model Post
  * 
  */
@@ -97,26 +117,6 @@ export type Notification = Prisma.NotificationModel
  * 
  */
 export type UserSetting = Prisma.UserSettingModel
-/**
- * Model Like
- * 
- */
-export type Like = Prisma.LikeModel
-/**
- * Model Pin
- * 
- */
-export type Pin = Prisma.PinModel
-/**
- * Model Comment
- * 
- */
-export type Comment = Prisma.CommentModel
-/**
- * Model Report
- * 
- */
-export type Report = Prisma.ReportModel
 /**
  * Model ViewLog
  * 
