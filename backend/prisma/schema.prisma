@@ -46,10 +46,12 @@ model User {
   posts         Post[]
   boards        Board[]
   settings      UserSetting?
-  likes       Like[]
-  pins        Pin[]
-  comments    Comment[]
-  reports     Report[]
+
+  contentLikes    ContentLike[]
+  contentComments ContentComment[]
+  contentPins ContentPin[]
+  contentReports  ContentReport[]
+  
   follows     Follow[]   @relation("Follower")
   followers   Follow[]   @relation("Following")
   chats     ChatMember[]
@@ -108,6 +110,11 @@ model Content {
   area   Area @relation(fields: [areaId], references: [id])
 
   media       ContentMedia[]
+  likes        ContentLike[]
+  comments     ContentComment[]
+  pins         ContentPin[]
+  reports      ContentReport[]
+
   createdAt   DateTime @default(now())
   publishedAt DateTime?
 
@@ -123,6 +130,60 @@ model ContentMedia {
 
   contentId Int
   content   Content @relation(fields: [contentId], references: [id])
+}
+
+model ContentLike {
+  userId    Int
+  contentId Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  content Content @relation(fields: [contentId], references: [id])
+
+  @@id([userId, contentId])
+  @@index([contentId])
+}
+
+model ContentComment {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+
+  userId    Int
+  contentId Int
+
+  user    User    @relation(fields: [userId], references: [id])
+  content Content @relation(fields: [contentId], references: [id])
+
+  @@index([contentId])
+}
+
+model ContentPin {
+  userId    Int
+  contentId Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  content Content @relation(fields: [contentId], references: [id])
+
+  @@id([userId, contentId])
+  @@index([contentId])
+}
+
+model ContentReport {
+  id          Int      @id @default(autoincrement())
+  type        ReportType
+  description String
+  createdAt   DateTime @default(now())
+
+  reporterId Int
+  contentId  Int
+
+  reporter User    @relation(fields: [reporterId], references: [id])
+  content  Content @relation(fields: [contentId], references: [id])
+
+  @@unique([reporterId, contentId])
+  @@index([contentId])
 }
 
 model Post {
@@ -243,64 +304,6 @@ enum NotificationType {
   like
   comment
   follow
-}
-
-model Like {
-  userId     Int
-  targetId   Int
-  targetType TargetType
-  createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id])
-
-  @@id([userId, targetType, targetId])
-  @@index([targetType, targetId])
-}
-
-model Pin {
-  userId     Int
-  targetId   Int
-  targetType TargetType
-  createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id])
-
-  @@id([userId, targetType, targetId])
-  @@index([targetType, targetId])
-}
-
-model Comment {
-  id        Int      @id @default(autoincrement())
-  message   String
-  createdAt DateTime @default(now())
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  targetId   Int
-  targetType TargetType
-
-  parentCommentId Int?
-  parentComment   Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id])
-  replies         Comment[] @relation("CommentReplies")
-
-  @@index([targetType, targetId])
-}
-
-model Report {
-  id          Int      @id @default(autoincrement())
-  description String
-  createdAt   DateTime @default(now())
-
-  reportType ReportType
-
-  reporterId Int
-  reporter   User @relation(fields: [reporterId], references: [id])
-
-  targetId   Int
-  targetType TargetType
-
-  @@index([targetType, targetId])
 }
 
 enum ReportType {
