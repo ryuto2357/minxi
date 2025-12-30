@@ -116,7 +116,6 @@ model Content {
   reports      ContentReport[]
 
   createdAt   DateTime @default(now())
-  publishedAt DateTime?
 
   @@index([areaId])
   @@index([creatorId])
@@ -206,7 +205,6 @@ model Post {
 
   media       PostMedia[]
   createdAt   DateTime @default(now())
-  publishedAt DateTime?
 
   @@index([areaId])
   @@index([creatorId])
