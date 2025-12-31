@@ -31,6 +31,11 @@ export class ContentController {
         return this.contentService.getMyContents(user);
     }
 
+    @Get(":id")
+    getContent(@CurrentUser() user: AuthUser,  @Param("id") contentId: string) {
+        return this.contentService.getContent(user, +contentId);
+    }
+
     @Delete(":id")
     deleteContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
         return this.contentService.deleteContent(user, +contentId);
@@ -56,5 +61,15 @@ export class ContentController {
     @Get(":id/comments")
     getComments(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
         return this.contentService.getComments(user, +contentId);
+    }
+
+    @Post(":id/pin")
+    pinContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
+        return this.contentService.pinContent(user, +contentId);
+    }
+
+    @Delete(":id/pin")
+    unpinContent(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
+        return this.contentService.unpinContent(user, +contentId);
     }
 }

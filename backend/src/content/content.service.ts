@@ -67,6 +67,10 @@ export class ContentService {
                 likes: {
                     where: { userId: user.id },
                     select: { userId: true }
+                },
+                pins: {
+                    where: { userId: user.id },
+                    select: { userId: true }
                 }
             },
         });
@@ -74,7 +78,9 @@ export class ContentService {
         return contents.map(content => ({
             ...content,
             likedByMe: content.likes.length > 0,
-            likes: undefined
+            pinnedByMe: content.pins.length > 0,
+            likes: undefined,
+            pins: undefined
         }));
     }
 
@@ -96,6 +102,10 @@ export class ContentService {
                 likes: {
                     where: { userId: user.id },
                     select: { userId: true }
+                },
+                pins: {
+                    where: { userId: user.id },
+                    select: { userId: true }
                 }
             }
         });
@@ -103,8 +113,59 @@ export class ContentService {
         return contents.map(content => ({
             ...content,
             likedByMe: content.likes.length > 0,
-            likes: undefined
+            pinnedByMe: content.pins.length > 0,
+            likes: undefined,
+            pins: undefined
         }));
+    }
+
+    async getContent(user: AuthUser, contentId: number) {
+        const content = await this.prismaService.content.findUnique({
+            where: { id: contentId },
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        username: true,
+                        profilePicture: true
+                    }
+                },
+                media: true,
+                _count: {
+                    select: {
+                        likes: true, comments: true, pins: true, reports: true
+                    }
+                },
+                likes: {
+                    where: { userId: user.id },
+                    select: { userId: true }
+                },
+                pins: {
+                    where: { userId: user.id },
+                    select: { userId: true }
+                }
+            }
+        });
+
+        if (!content) {
+            throw new NotFoundException("Content not found");
+        }
+
+        if (content.isPrivate && content.creatorId !== user.id) {
+            throw new ForbiddenException("You do not have permission to view this content");
+        }
+
+        if (content.status !== "PUBLISHED" && content.creatorId !== user.id) {
+            throw new ForbiddenException("You do not have permission to view this content");
+        }
+        
+        return {
+            ...content,
+            likedByMe: content.likes.length > 0,
+            pinnedByMe: content.pins.length > 0,
+            likes: undefined,
+            pins: undefined
+        };
     }
 
     async deleteContent(user: AuthUser, contentId: number) {
@@ -228,5 +289,53 @@ export class ContentService {
             isMine: comment.userId === user.id,
             replies: []
         }));
+    }
+
+    async pinContent(user: AuthUser, contentId: number) {
+        const content = await this.prismaService.content.findUnique({
+            where: { id: contentId }
+        });
+
+        if (!content) {
+            throw new NotFoundException("Content not found");
+        }
+
+        if (content.isPrivate) {
+            throw new ForbiddenException("You cannot pin private content");
+        }
+
+        if (content.status !== "PUBLISHED") {
+            throw new ForbiddenException("You cannot pin unpublished content");
+        }
+
+        if (content.creatorId !== user.id) {
+            throw new ForbiddenException("You do not have permission to pin this content");
+        }
+
+        try {
+            return await this.prismaService.contentPin.create({
+                data: {
+                    userId: user.id,
+                    contentId: contentId
+                }
+            });
+        } catch (error) {
+            throw new BadRequestException("You have already pinned this content");
+        }
+    }
+
+    async unpinContent(user: AuthUser, contentId: number) {
+        try {
+            return await this.prismaService.contentPin.delete({
+                where: {
+                    userId_contentId: {
+                        userId: user.id,
+                        contentId: contentId
+                    }
+                }
+            });
+        } catch (error) {
+            throw new NotFoundException("You have not pinned this content");
+        }
     }
 }
