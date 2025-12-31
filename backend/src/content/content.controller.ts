@@ -54,7 +54,7 @@ export class ContentController {
     }
 
     @Get(":id/comments")
-    getComments(@Param("id") contentId: string) {
-        return this.contentService.getComments(+contentId);
+    getComments(@CurrentUser() user: AuthUser, @Param("id") contentId: string) {
+        return this.contentService.getComments(user, +contentId);
     }
 }

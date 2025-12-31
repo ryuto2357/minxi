@@ -205,8 +205,8 @@ export class ContentService {
         });
     }
 
-    async getComments(contentId: number) {
-        return await this.prismaService.contentComment.findMany({
+    async getComments(user: AuthUser, contentId: number) {
+        const comments = await this.prismaService.contentComment.findMany({
             where: { contentId: contentId },
             orderBy: { createdAt: "asc" },
             include: {
@@ -219,5 +219,14 @@ export class ContentService {
                 }
             }
         });
+
+        return comments.map(comment => ({
+            id: comment.id,
+            message: comment.message,
+            createdAt: comment.createdAt,
+            user: comment.user,
+            isMine: comment.userId === user.id,
+            replies: []
+        }));
     }
 }
