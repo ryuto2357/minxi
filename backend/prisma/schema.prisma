@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "./generated"
+  provider     = "prisma-client"
+  output       = "./generated"
   moduleFormat = "cjs"
 }
 
@@ -15,13 +15,13 @@ datasource db {
 }
 
 model Area {
-  id    Int       @id @default(autoincrement())
-  name  AreaName  @unique
+  id   Int      @id @default(autoincrement())
+  name AreaName @unique
 
-  users     User[]
-  contents  Content[]
-  posts     Post[]
-  boards    Board[]
+  users    User[]
+  contents Content[]
+  posts    Post[]
+  boards   Board[]
 }
 
 enum AreaName {
@@ -31,41 +31,46 @@ enum AreaName {
 }
 
 model User {
-  id              Int      @id @default(autoincrement())
-  username        String
-  passwordHash    String
-  profilePicture  String?
-  bio             String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  username       String
+  passwordHash   String
+  profilePicture String?
+  bio            String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   areaId Int
   area   Area @relation(fields: [areaId], references: [id])
 
-  contents      Content[]
-  posts         Post[]
-  boards        Board[]
-  settings      UserSetting?
+  boards   Board[]
+  settings UserSetting?
 
+  contents        Content[]
   contentLikes    ContentLike[]
   contentComments ContentComment[]
-  contentPins ContentPin[]
+  contentPins     ContentPin[]
   contentReports  ContentReport[]
-  
-  follows     Follow[]   @relation("Follower")
-  followers   Follow[]   @relation("Following")
+
+  posts        Post[]
+  postLikes    PostLike[]
+  postComments PostComment[]
+  postPins     PostPin[]
+  postReports  PostReport[]
+
+  follows   Follow[]     @relation("Follower")
+  followers Follow[]     @relation("Following")
   chats     ChatMember[]
   messages  Message[]
-  
+
   friendsInitiated Friend[] @relation("FriendUser")
   friendsReceived  Friend[] @relation("FriendTarget")
 
   notificationsReceived Notification[] @relation("UserNotifications")
   notificationsSent     Notification[] @relation("SentNotifications")
 
-  ownedChats  Chat[]
+  ownedChats Chat[]
 
-  refreshToken  String?
+  refreshToken String?
 
   @@unique([username, areaId])
 }
@@ -93,15 +98,15 @@ model Friend {
 }
 
 model Content {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   title       String
   description String
   type        ContentType
-  isPrivate   Boolean  @default(false)
+  isPrivate   Boolean       @default(false)
   status      PublishStatus @default(DRAFT)
   thumbnail   String?
-  viewCount   Int      @default(0)
-  popularity  Float    @default(0)
+  viewCount   Int           @default(0)
+  popularity  Float         @default(0)
 
   creatorId Int
   creator   User @relation(fields: [creatorId], references: [id])
@@ -109,13 +114,13 @@ model Content {
   areaId Int
   area   Area @relation(fields: [areaId], references: [id])
 
-  media       ContentMedia[]
-  likes        ContentLike[]
-  comments     ContentComment[]
-  pins         ContentPin[]
-  reports      ContentReport[]
+  media    ContentMedia[]
+  likes    ContentLike[]
+  comments ContentComment[]
+  pins     ContentPin[]
+  reports  ContentReport[]
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@index([areaId])
   @@index([creatorId])
@@ -123,7 +128,7 @@ model Content {
 }
 
 model ContentMedia {
-  id        Int    @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   mediaUrl  String
   mediaType MediaType
 
@@ -170,10 +175,10 @@ model ContentPin {
 }
 
 model ContentReport {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   type        ReportType
   description String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
 
   reporterId Int
   contentId  Int
@@ -186,12 +191,17 @@ model ContentReport {
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   title       String
   description String
+  isPrivate   Boolean       @default(false)
   status      PublishStatus @default(DRAFT)
-  viewCount   Int      @default(0)
-  popularity  Float    @default(0)
+  viewCount   Int           @default(0)
+  popularity  Float         @default(0)
+
+  parentId Int?
+  parent   Post?  @relation("PostReplies", fields: [parentId], references: [id])
+  replies  Post[] @relation("PostReplies")
 
   creatorId Int
   creator   User @relation(fields: [creatorId], references: [id])
@@ -199,25 +209,81 @@ model Post {
   areaId Int
   area   Area @relation(fields: [areaId], references: [id])
 
-  parentPostId Int?
-  parentPost   Post? @relation("PostReplies", fields: [parentPostId], references: [id])
-  replies      Post[] @relation("PostReplies")
+  media PostMedia[]
 
-  media       PostMedia[]
-  createdAt   DateTime @default(now())
+  likes    PostLike[]
+  comments PostComment[]
+  pins     PostPin[]
+  reports  PostReport[]
+
+  createdAt   DateTime  @default(now())
+  publishedAt DateTime?
 
   @@index([areaId])
   @@index([creatorId])
   @@index([popularity])
+  @@index([parentId])
 }
 
 model PostMedia {
-  id        Int    @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   mediaUrl  String
   mediaType MediaType
 
   postId Int
   post   Post @relation(fields: [postId], references: [id])
+}
+
+model PostLike {
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
+  @@index([postId])
+}
+
+model PostComment {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+
+  userId Int
+  postId Int
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  @@index([postId])
+}
+
+model PostPin {
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
+}
+
+model PostReport {
+  id          Int        @id @default(autoincrement())
+  type        ReportType
+  description String
+  createdAt   DateTime   @default(now())
+
+  reporterId Int
+  postId     Int
+
+  reporter User @relation(fields: [reporterId], references: [id])
+  post     Post @relation(fields: [postId], references: [id])
+
+  @@unique([reporterId, postId])
 }
 
 enum ContentType {
@@ -236,7 +302,7 @@ enum PublishStatus {
 }
 
 model Board {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String?
   thumbnail   String?
@@ -248,15 +314,15 @@ model Board {
   areaId Int
   area   Area @relation(fields: [areaId], references: [id])
 
-  items      BoardItem[]
-  createdAt  DateTime @default(now())
+  items     BoardItem[]
+  createdAt DateTime    @default(now())
 }
 
 model BoardItem {
-  boardId   Int
-  targetId  Int
+  boardId    Int
+  targetId   Int
   targetType TargetType
-  createdAt DateTime @default(now())
+  createdAt  DateTime   @default(now())
 
   board Board @relation(fields: [boardId], references: [id])
 
@@ -264,12 +330,12 @@ model BoardItem {
 }
 
 model Notification {
-  id        Int      @id @default(autoincrement())
-  type      NotificationType
-  targetId  Int
+  id         Int              @id @default(autoincrement())
+  type       NotificationType
+  targetId   Int
   targetType TargetType
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
+  isRead     Boolean          @default(false)
+  createdAt  DateTime         @default(now())
 
   userId Int
   user   User @relation("UserNotifications", fields: [userId], references: [id])
@@ -285,9 +351,9 @@ model UserSetting {
   notifyComment Boolean @default(true)
   notifyFollow  Boolean @default(true)
 
-  showLikes     Boolean @default(true)
-  showPins      Boolean @default(true)
-  showContents  Boolean @default(true)
+  showLikes    Boolean @default(true)
+  showPins     Boolean @default(true)
+  showContents Boolean @default(true)
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -311,33 +377,32 @@ enum ReportType {
 }
 
 model ViewLog {
-  id         Int      @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   userId     Int?
   targetId   Int
   targetType TargetType
-  createdAt  DateTime @default(now())
+  createdAt  DateTime   @default(now())
 
   @@index([targetType, targetId])
 }
 
 model Chat {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   type      ChatType
   name      String?
   thumbnail String?
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 
   ownerId Int
   owner   User @relation(fields: [ownerId], references: [id])
 
   parentCommunityId Int?
-  parentCommunity   Chat? @relation("CommunityGroups", fields: [parentCommunityId], references: [id])
+  parentCommunity   Chat?  @relation("CommunityGroups", fields: [parentCommunityId], references: [id])
   groups            Chat[] @relation("CommunityGroups")
 
   members  ChatMember[]
   messages Message[]
 }
-
 
 enum ChatType {
   DIRECT
@@ -381,11 +446,10 @@ model Message {
 }
 
 model MessageMedia {
-  id        Int    @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   mediaUrl  String
   mediaType MediaType
 
   messageId Int
   message   Message @relation(fields: [messageId], references: [id])
 }
-
