@@ -63,6 +63,10 @@ export const ModelName = {
   ContentReport: 'ContentReport',
   Post: 'Post',
   PostMedia: 'PostMedia',
+  PostLike: 'PostLike',
+  PostComment: 'PostComment',
+  PostPin: 'PostPin',
+  PostReport: 'PostReport',
   Board: 'Board',
   BoardItem: 'BoardItem',
   Notification: 'Notification',
@@ -204,13 +208,15 @@ export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  isPrivate: 'isPrivate',
   status: 'status',
   viewCount: 'viewCount',
   popularity: 'popularity',
+  parentId: 'parentId',
   creatorId: 'creatorId',
   areaId: 'areaId',
-  parentPostId: 'parentPostId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  publishedAt: 'publishedAt'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -226,13 +232,53 @@ export const PostMediaScalarFieldEnum = {
 export type PostMediaScalarFieldEnum = (typeof PostMediaScalarFieldEnum)[keyof typeof PostMediaScalarFieldEnum]
 
 
+export const PostLikeScalarFieldEnum = {
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+} as const
+
+export type PostLikeScalarFieldEnum = (typeof PostLikeScalarFieldEnum)[keyof typeof PostLikeScalarFieldEnum]
+
+
+export const PostCommentScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  postId: 'postId'
+} as const
+
+export type PostCommentScalarFieldEnum = (typeof PostCommentScalarFieldEnum)[keyof typeof PostCommentScalarFieldEnum]
+
+
+export const PostPinScalarFieldEnum = {
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+} as const
+
+export type PostPinScalarFieldEnum = (typeof PostPinScalarFieldEnum)[keyof typeof PostPinScalarFieldEnum]
+
+
+export const PostReportScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  reporterId: 'reporterId',
+  postId: 'postId'
+} as const
+
+export type PostReportScalarFieldEnum = (typeof PostReportScalarFieldEnum)[keyof typeof PostReportScalarFieldEnum]
+
+
 export const BoardScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  thumbnail: 'thumbnail',
   isPrivate: 'isPrivate',
-  ownerId: 'ownerId',
+  userId: 'userId',
   areaId: 'areaId',
   createdAt: 'createdAt'
 } as const
@@ -404,10 +450,23 @@ export const PostMediaOrderByRelevanceFieldEnum = {
 export type PostMediaOrderByRelevanceFieldEnum = (typeof PostMediaOrderByRelevanceFieldEnum)[keyof typeof PostMediaOrderByRelevanceFieldEnum]
 
 
+export const PostCommentOrderByRelevanceFieldEnum = {
+  message: 'message'
+} as const
+
+export type PostCommentOrderByRelevanceFieldEnum = (typeof PostCommentOrderByRelevanceFieldEnum)[keyof typeof PostCommentOrderByRelevanceFieldEnum]
+
+
+export const PostReportOrderByRelevanceFieldEnum = {
+  description: 'description'
+} as const
+
+export type PostReportOrderByRelevanceFieldEnum = (typeof PostReportOrderByRelevanceFieldEnum)[keyof typeof PostReportOrderByRelevanceFieldEnum]
+
+
 export const BoardOrderByRelevanceFieldEnum = {
   name: 'name',
-  description: 'description',
-  thumbnail: 'thumbnail'
+  description: 'description'
 } as const
 
 export type BoardOrderByRelevanceFieldEnum = (typeof BoardOrderByRelevanceFieldEnum)[keyof typeof BoardOrderByRelevanceFieldEnum]

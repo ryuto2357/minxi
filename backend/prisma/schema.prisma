@@ -305,17 +305,19 @@ model Board {
   id          Int     @id @default(autoincrement())
   name        String
   description String?
-  thumbnail   String?
   isPrivate   Boolean @default(false)
 
-  ownerId Int
-  owner   User @relation(fields: [ownerId], references: [id])
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 
   areaId Int
   area   Area @relation(fields: [areaId], references: [id])
 
   items     BoardItem[]
   createdAt DateTime    @default(now())
+
+  @@index([userId])
+  @@index([areaId])
 }
 
 model BoardItem {

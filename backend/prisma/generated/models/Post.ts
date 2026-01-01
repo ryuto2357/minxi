@@ -30,57 +30,63 @@ export type PostAvgAggregateOutputType = {
   id: number | null
   viewCount: number | null
   popularity: number | null
+  parentId: number | null
   creatorId: number | null
   areaId: number | null
-  parentPostId: number | null
 }
 
 export type PostSumAggregateOutputType = {
   id: number | null
   viewCount: number | null
   popularity: number | null
+  parentId: number | null
   creatorId: number | null
   areaId: number | null
-  parentPostId: number | null
 }
 
 export type PostMinAggregateOutputType = {
   id: number | null
   title: string | null
   description: string | null
+  isPrivate: boolean | null
   status: $Enums.PublishStatus | null
   viewCount: number | null
   popularity: number | null
+  parentId: number | null
   creatorId: number | null
   areaId: number | null
-  parentPostId: number | null
   createdAt: Date | null
+  publishedAt: Date | null
 }
 
 export type PostMaxAggregateOutputType = {
   id: number | null
   title: string | null
   description: string | null
+  isPrivate: boolean | null
   status: $Enums.PublishStatus | null
   viewCount: number | null
   popularity: number | null
+  parentId: number | null
   creatorId: number | null
   areaId: number | null
-  parentPostId: number | null
   createdAt: Date | null
+  publishedAt: Date | null
 }
 
 export type PostCountAggregateOutputType = {
   id: number
   title: number
   description: number
+  isPrivate: number
   status: number
   viewCount: number
   popularity: number
+  parentId: number
   creatorId: number
   areaId: number
-  parentPostId: number
   createdAt: number
+  publishedAt: number
   _all: number
 }
 
@@ -89,57 +95,63 @@ export type PostAvgAggregateInputType = {
   id?: true
   viewCount?: true
   popularity?: true
+  parentId?: true
   creatorId?: true
   areaId?: true
-  parentPostId?: true
 }
 
 export type PostSumAggregateInputType = {
   id?: true
   viewCount?: true
   popularity?: true
+  parentId?: true
   creatorId?: true
   areaId?: true
-  parentPostId?: true
 }
 
 export type PostMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isPrivate?: true
   status?: true
   viewCount?: true
   popularity?: true
+  parentId?: true
   creatorId?: true
   areaId?: true
-  parentPostId?: true
   createdAt?: true
+  publishedAt?: true
 }
 
 export type PostMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isPrivate?: true
   status?: true
   viewCount?: true
   popularity?: true
+  parentId?: true
   creatorId?: true
   areaId?: true
-  parentPostId?: true
   createdAt?: true
+  publishedAt?: true
 }
 
 export type PostCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  isPrivate?: true
   status?: true
   viewCount?: true
   popularity?: true
+  parentId?: true
   creatorId?: true
   areaId?: true
-  parentPostId?: true
   createdAt?: true
+  publishedAt?: true
   _all?: true
 }
 
@@ -233,13 +245,15 @@ export type PostGroupByOutputType = {
   id: number
   title: string
   description: string
+  isPrivate: boolean
   status: $Enums.PublishStatus
   viewCount: number
   popularity: number
+  parentId: number | null
   creatorId: number
   areaId: number
-  parentPostId: number | null
   createdAt: Date
+  publishedAt: Date | null
   _count: PostCountAggregateOutputType | null
   _avg: PostAvgAggregateOutputType | null
   _sum: PostSumAggregateOutputType | null
@@ -269,36 +283,48 @@ export type PostWhereInput = {
   id?: Prisma.IntFilter<"Post"> | number
   title?: Prisma.StringFilter<"Post"> | string
   description?: Prisma.StringFilter<"Post"> | string
+  isPrivate?: Prisma.BoolFilter<"Post"> | boolean
   status?: Prisma.EnumPublishStatusFilter<"Post"> | $Enums.PublishStatus
   viewCount?: Prisma.IntFilter<"Post"> | number
   popularity?: Prisma.FloatFilter<"Post"> | number
+  parentId?: Prisma.IntNullableFilter<"Post"> | number | null
   creatorId?: Prisma.IntFilter<"Post"> | number
   areaId?: Prisma.IntFilter<"Post"> | number
-  parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  parent?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
+  replies?: Prisma.PostListRelationFilter
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
-  parentPost?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
-  replies?: Prisma.PostListRelationFilter
   media?: Prisma.PostMediaListRelationFilter
+  likes?: Prisma.PostLikeListRelationFilter
+  comments?: Prisma.PostCommentListRelationFilter
+  pins?: Prisma.PostPinListRelationFilter
+  reports?: Prisma.PostReportListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   status?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  parent?: Prisma.PostOrderByWithRelationInput
+  replies?: Prisma.PostOrderByRelationAggregateInput
   creator?: Prisma.UserOrderByWithRelationInput
   area?: Prisma.AreaOrderByWithRelationInput
-  parentPost?: Prisma.PostOrderByWithRelationInput
-  replies?: Prisma.PostOrderByRelationAggregateInput
   media?: Prisma.PostMediaOrderByRelationAggregateInput
+  likes?: Prisma.PostLikeOrderByRelationAggregateInput
+  comments?: Prisma.PostCommentOrderByRelationAggregateInput
+  pins?: Prisma.PostPinOrderByRelationAggregateInput
+  reports?: Prisma.PostReportOrderByRelationAggregateInput
   _relevance?: Prisma.PostOrderByRelevanceInput
 }
 
@@ -309,31 +335,39 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   title?: Prisma.StringFilter<"Post"> | string
   description?: Prisma.StringFilter<"Post"> | string
+  isPrivate?: Prisma.BoolFilter<"Post"> | boolean
   status?: Prisma.EnumPublishStatusFilter<"Post"> | $Enums.PublishStatus
   viewCount?: Prisma.IntFilter<"Post"> | number
   popularity?: Prisma.FloatFilter<"Post"> | number
+  parentId?: Prisma.IntNullableFilter<"Post"> | number | null
   creatorId?: Prisma.IntFilter<"Post"> | number
   areaId?: Prisma.IntFilter<"Post"> | number
-  parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  parent?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
+  replies?: Prisma.PostListRelationFilter
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   area?: Prisma.XOR<Prisma.AreaScalarRelationFilter, Prisma.AreaWhereInput>
-  parentPost?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
-  replies?: Prisma.PostListRelationFilter
   media?: Prisma.PostMediaListRelationFilter
+  likes?: Prisma.PostLikeListRelationFilter
+  comments?: Prisma.PostCommentListRelationFilter
+  pins?: Prisma.PostPinListRelationFilter
+  reports?: Prisma.PostReportListRelationFilter
 }, "id">
 
 export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   status?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PostCountOrderByAggregateInput
   _avg?: Prisma.PostAvgOrderByAggregateInput
   _max?: Prisma.PostMaxOrderByAggregateInput
@@ -348,106 +382,138 @@ export type PostScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Post"> | number
   title?: Prisma.StringWithAggregatesFilter<"Post"> | string
   description?: Prisma.StringWithAggregatesFilter<"Post"> | string
+  isPrivate?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
   status?: Prisma.EnumPublishStatusWithAggregatesFilter<"Post"> | $Enums.PublishStatus
   viewCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
   popularity?: Prisma.FloatWithAggregatesFilter<"Post"> | number
+  parentId?: Prisma.IntNullableWithAggregatesFilter<"Post"> | number | null
   creatorId?: Prisma.IntWithAggregatesFilter<"Post"> | number
   areaId?: Prisma.IntWithAggregatesFilter<"Post"> | number
-  parentPostId?: Prisma.IntNullableWithAggregatesFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
+  publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
 }
 
 export type PostCreateInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
-  parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
-  replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
-  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
-  parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
-  replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
+  publishedAt?: Date | string | null
 }
 
 export type PostUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostListRelationFilter = {
@@ -475,57 +541,63 @@ export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   status?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
 }
 
 export type PostAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrder
 }
 
 export type PostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   status?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
 }
 
 export type PostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
   status?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  publishedAt?: Prisma.SortOrder
 }
 
 export type PostSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   areaId?: Prisma.SortOrder
-  parentPostId?: Prisma.SortOrder
 }
 
 export type PostScalarRelationFilter = {
@@ -623,18 +695,22 @@ export type PostCreateNestedOneWithoutRepliesInput = {
   connect?: Prisma.PostWhereUniqueInput
 }
 
-export type PostCreateNestedManyWithoutParentPostInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput> | Prisma.PostCreateWithoutParentPostInput[] | Prisma.PostUncheckedCreateWithoutParentPostInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentPostInput | Prisma.PostCreateOrConnectWithoutParentPostInput[]
-  createMany?: Prisma.PostCreateManyParentPostInputEnvelope
+export type PostCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput> | Prisma.PostCreateWithoutParentInput[] | Prisma.PostUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentInput | Prisma.PostCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.PostCreateManyParentInputEnvelope
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
 }
 
-export type PostUncheckedCreateNestedManyWithoutParentPostInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput> | Prisma.PostCreateWithoutParentPostInput[] | Prisma.PostUncheckedCreateWithoutParentPostInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentPostInput | Prisma.PostCreateOrConnectWithoutParentPostInput[]
-  createMany?: Prisma.PostCreateManyParentPostInputEnvelope
+export type PostUncheckedCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput> | Prisma.PostCreateWithoutParentInput[] | Prisma.PostUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentInput | Prisma.PostCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.PostCreateManyParentInputEnvelope
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type PostUpdateOneWithoutRepliesNestedInput = {
@@ -647,17 +723,17 @@ export type PostUpdateOneWithoutRepliesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutRepliesInput, Prisma.PostUpdateWithoutRepliesInput>, Prisma.PostUncheckedUpdateWithoutRepliesInput>
 }
 
-export type PostUpdateManyWithoutParentPostNestedInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput> | Prisma.PostCreateWithoutParentPostInput[] | Prisma.PostUncheckedCreateWithoutParentPostInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentPostInput | Prisma.PostCreateOrConnectWithoutParentPostInput[]
-  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutParentPostInput | Prisma.PostUpsertWithWhereUniqueWithoutParentPostInput[]
-  createMany?: Prisma.PostCreateManyParentPostInputEnvelope
+export type PostUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput> | Prisma.PostCreateWithoutParentInput[] | Prisma.PostUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentInput | Prisma.PostCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutParentInput | Prisma.PostUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.PostCreateManyParentInputEnvelope
   set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
-  update?: Prisma.PostUpdateWithWhereUniqueWithoutParentPostInput | Prisma.PostUpdateWithWhereUniqueWithoutParentPostInput[]
-  updateMany?: Prisma.PostUpdateManyWithWhereWithoutParentPostInput | Prisma.PostUpdateManyWithWhereWithoutParentPostInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutParentInput | Prisma.PostUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutParentInput | Prisma.PostUpdateManyWithWhereWithoutParentInput[]
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
@@ -669,17 +745,17 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type PostUncheckedUpdateManyWithoutParentPostNestedInput = {
-  create?: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput> | Prisma.PostCreateWithoutParentPostInput[] | Prisma.PostUncheckedCreateWithoutParentPostInput[]
-  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentPostInput | Prisma.PostCreateOrConnectWithoutParentPostInput[]
-  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutParentPostInput | Prisma.PostUpsertWithWhereUniqueWithoutParentPostInput[]
-  createMany?: Prisma.PostCreateManyParentPostInputEnvelope
+export type PostUncheckedUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput> | Prisma.PostCreateWithoutParentInput[] | Prisma.PostUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutParentInput | Prisma.PostCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutParentInput | Prisma.PostUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.PostCreateManyParentInputEnvelope
   set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
-  update?: Prisma.PostUpdateWithWhereUniqueWithoutParentPostInput | Prisma.PostUpdateWithWhereUniqueWithoutParentPostInput[]
-  updateMany?: Prisma.PostUpdateManyWithWhereWithoutParentPostInput | Prisma.PostUpdateManyWithWhereWithoutParentPostInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutParentInput | Prisma.PostUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutParentInput | Prisma.PostUpdateManyWithWhereWithoutParentInput[]
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
@@ -697,31 +773,99 @@ export type PostUpdateOneRequiredWithoutMediaNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutMediaInput, Prisma.PostUpdateWithoutMediaInput>, Prisma.PostUncheckedUpdateWithoutMediaInput>
 }
 
+export type PostCreateNestedOneWithoutLikesInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutLikesInput, Prisma.PostUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutLikesInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutLikesInput, Prisma.PostUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutLikesInput
+  upsert?: Prisma.PostUpsertWithoutLikesInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutLikesInput, Prisma.PostUpdateWithoutLikesInput>, Prisma.PostUncheckedUpdateWithoutLikesInput>
+}
+
+export type PostCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutCommentsInput, Prisma.PostUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutCommentsInput, Prisma.PostUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.PostUpsertWithoutCommentsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutCommentsInput, Prisma.PostUpdateWithoutCommentsInput>, Prisma.PostUncheckedUpdateWithoutCommentsInput>
+}
+
+export type PostCreateNestedOneWithoutPinsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutPinsInput, Prisma.PostUncheckedCreateWithoutPinsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutPinsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutPinsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutPinsInput, Prisma.PostUncheckedCreateWithoutPinsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutPinsInput
+  upsert?: Prisma.PostUpsertWithoutPinsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutPinsInput, Prisma.PostUpdateWithoutPinsInput>, Prisma.PostUncheckedUpdateWithoutPinsInput>
+}
+
+export type PostCreateNestedOneWithoutReportsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutReportsInput, Prisma.PostUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutReportsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutReportsInput, Prisma.PostUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutReportsInput
+  upsert?: Prisma.PostUpsertWithoutReportsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutReportsInput, Prisma.PostUpdateWithoutReportsInput>, Prisma.PostUncheckedUpdateWithoutReportsInput>
+}
+
 export type PostCreateWithoutAreaInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
-  parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
-  replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutAreaInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
-  parentPostId?: number | null
   createdAt?: Date | string
-  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutAreaInput = {
@@ -757,40 +901,54 @@ export type PostScalarWhereInput = {
   id?: Prisma.IntFilter<"Post"> | number
   title?: Prisma.StringFilter<"Post"> | string
   description?: Prisma.StringFilter<"Post"> | string
+  isPrivate?: Prisma.BoolFilter<"Post"> | boolean
   status?: Prisma.EnumPublishStatusFilter<"Post"> | $Enums.PublishStatus
   viewCount?: Prisma.IntFilter<"Post"> | number
   popularity?: Prisma.FloatFilter<"Post"> | number
+  parentId?: Prisma.IntNullableFilter<"Post"> | number | null
   creatorId?: Prisma.IntFilter<"Post"> | number
   areaId?: Prisma.IntFilter<"Post"> | number
-  parentPostId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
+  publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
 }
 
 export type PostCreateWithoutCreatorInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
-  parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
-  replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutCreatorInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
-  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutCreatorInput = {
@@ -822,28 +980,40 @@ export type PostUpdateManyWithWhereWithoutCreatorInput = {
 export type PostCreateWithoutRepliesInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
-  parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
   media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutRepliesInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
+  publishedAt?: Date | string | null
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutRepliesInput = {
@@ -851,40 +1021,52 @@ export type PostCreateOrConnectWithoutRepliesInput = {
   create: Prisma.XOR<Prisma.PostCreateWithoutRepliesInput, Prisma.PostUncheckedCreateWithoutRepliesInput>
 }
 
-export type PostCreateWithoutParentPostInput = {
+export type PostCreateWithoutParentInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
-  replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
   media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
-export type PostUncheckedCreateWithoutParentPostInput = {
+export type PostUncheckedCreateWithoutParentInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   creatorId: number
   areaId: number
   createdAt?: Date | string
-  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
-export type PostCreateOrConnectWithoutParentPostInput = {
+export type PostCreateOrConnectWithoutParentInput = {
   where: Prisma.PostWhereUniqueInput
-  create: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput>
 }
 
-export type PostCreateManyParentPostInputEnvelope = {
-  data: Prisma.PostCreateManyParentPostInput | Prisma.PostCreateManyParentPostInput[]
+export type PostCreateManyParentInputEnvelope = {
+  data: Prisma.PostCreateManyParentInput | Prisma.PostCreateManyParentInput[]
   skipDuplicates?: boolean
 }
 
@@ -902,71 +1084,95 @@ export type PostUpdateToOneWithWhereWithoutRepliesInput = {
 export type PostUpdateWithoutRepliesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
-  parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
   media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutRepliesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
 }
 
-export type PostUpsertWithWhereUniqueWithoutParentPostInput = {
+export type PostUpsertWithWhereUniqueWithoutParentInput = {
   where: Prisma.PostWhereUniqueInput
-  update: Prisma.XOR<Prisma.PostUpdateWithoutParentPostInput, Prisma.PostUncheckedUpdateWithoutParentPostInput>
-  create: Prisma.XOR<Prisma.PostCreateWithoutParentPostInput, Prisma.PostUncheckedCreateWithoutParentPostInput>
+  update: Prisma.XOR<Prisma.PostUpdateWithoutParentInput, Prisma.PostUncheckedUpdateWithoutParentInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutParentInput, Prisma.PostUncheckedCreateWithoutParentInput>
 }
 
-export type PostUpdateWithWhereUniqueWithoutParentPostInput = {
+export type PostUpdateWithWhereUniqueWithoutParentInput = {
   where: Prisma.PostWhereUniqueInput
-  data: Prisma.XOR<Prisma.PostUpdateWithoutParentPostInput, Prisma.PostUncheckedUpdateWithoutParentPostInput>
+  data: Prisma.XOR<Prisma.PostUpdateWithoutParentInput, Prisma.PostUncheckedUpdateWithoutParentInput>
 }
 
-export type PostUpdateManyWithWhereWithoutParentPostInput = {
+export type PostUpdateManyWithWhereWithoutParentInput = {
   where: Prisma.PostScalarWhereInput
-  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutParentPostInput>
+  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutParentInput>
 }
 
 export type PostCreateWithoutMediaInput = {
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
   creator: Prisma.UserCreateNestedOneWithoutPostsInput
   area: Prisma.AreaCreateNestedOneWithoutPostsInput
-  parentPost?: Prisma.PostCreateNestedOneWithoutRepliesInput
-  replies?: Prisma.PostCreateNestedManyWithoutParentPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutMediaInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
-  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentPostInput
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutMediaInput = {
@@ -988,181 +1194,617 @@ export type PostUpdateToOneWithWhereWithoutMediaInput = {
 export type PostUpdateWithoutMediaInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
-  parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
-  replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutMediaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostCreateWithoutLikesInput = {
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
+  creator: Prisma.UserCreateNestedOneWithoutPostsInput
+  area: Prisma.AreaCreateNestedOneWithoutPostsInput
+  media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutLikesInput = {
+  id?: number
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  parentId?: number | null
+  creatorId: number
+  areaId: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
+  media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutLikesInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutLikesInput, Prisma.PostUncheckedCreateWithoutLikesInput>
+}
+
+export type PostUpsertWithoutLikesInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutLikesInput, Prisma.PostUncheckedUpdateWithoutLikesInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutLikesInput, Prisma.PostUncheckedCreateWithoutLikesInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutLikesInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutLikesInput, Prisma.PostUncheckedUpdateWithoutLikesInput>
+}
+
+export type PostUpdateWithoutLikesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
+  media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutLikesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creatorId?: Prisma.IntFieldUpdateOperationsInput | number
+  areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
+  media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostCreateWithoutCommentsInput = {
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
+  creator: Prisma.UserCreateNestedOneWithoutPostsInput
+  area: Prisma.AreaCreateNestedOneWithoutPostsInput
+  media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutCommentsInput = {
+  id?: number
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  parentId?: number | null
+  creatorId: number
+  areaId: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
+  media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutCommentsInput, Prisma.PostUncheckedCreateWithoutCommentsInput>
+}
+
+export type PostUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutCommentsInput, Prisma.PostUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutCommentsInput, Prisma.PostUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutCommentsInput, Prisma.PostUncheckedUpdateWithoutCommentsInput>
+}
+
+export type PostUpdateWithoutCommentsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
+  media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creatorId?: Prisma.IntFieldUpdateOperationsInput | number
+  areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
+  media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostCreateWithoutPinsInput = {
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
+  creator: Prisma.UserCreateNestedOneWithoutPostsInput
+  area: Prisma.AreaCreateNestedOneWithoutPostsInput
+  media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutPinsInput = {
+  id?: number
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  parentId?: number | null
+  creatorId: number
+  areaId: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
+  media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  reports?: Prisma.PostReportUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutPinsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutPinsInput, Prisma.PostUncheckedCreateWithoutPinsInput>
+}
+
+export type PostUpsertWithoutPinsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutPinsInput, Prisma.PostUncheckedUpdateWithoutPinsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutPinsInput, Prisma.PostUncheckedCreateWithoutPinsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutPinsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutPinsInput, Prisma.PostUncheckedUpdateWithoutPinsInput>
+}
+
+export type PostUpdateWithoutPinsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
+  media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutPinsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creatorId?: Prisma.IntFieldUpdateOperationsInput | number
+  areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
+  media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostCreateWithoutReportsInput = {
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  parent?: Prisma.PostCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.PostCreateNestedManyWithoutParentInput
+  creator: Prisma.UserCreateNestedOneWithoutPostsInput
+  area: Prisma.AreaCreateNestedOneWithoutPostsInput
+  media?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutReportsInput = {
+  id?: number
+  title: string
+  description: string
+  isPrivate?: boolean
+  status?: $Enums.PublishStatus
+  viewCount?: number
+  popularity?: number
+  parentId?: number | null
+  creatorId: number
+  areaId: number
+  createdAt?: Date | string
+  publishedAt?: Date | string | null
+  replies?: Prisma.PostUncheckedCreateNestedManyWithoutParentInput
+  media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  comments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutPostInput
+  pins?: Prisma.PostPinUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutReportsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutReportsInput, Prisma.PostUncheckedCreateWithoutReportsInput>
+}
+
+export type PostUpsertWithoutReportsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutReportsInput, Prisma.PostUncheckedUpdateWithoutReportsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutReportsInput, Prisma.PostUncheckedCreateWithoutReportsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutReportsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutReportsInput, Prisma.PostUncheckedUpdateWithoutReportsInput>
+}
+
+export type PostUpdateWithoutReportsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
+  media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutReportsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creatorId?: Prisma.IntFieldUpdateOperationsInput | number
+  areaId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
+  media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyAreaInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   creatorId: number
-  parentPostId?: number | null
   createdAt?: Date | string
+  publishedAt?: Date | string | null
 }
 
 export type PostUpdateWithoutAreaInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
-  replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutAreaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutAreaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PostCreateManyCreatorInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
+  parentId?: number | null
   areaId: number
-  parentPostId?: number | null
   createdAt?: Date | string
+  publishedAt?: Date | string | null
 }
 
 export type PostUpdateWithoutCreatorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  parent?: Prisma.PostUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
-  parentPost?: Prisma.PostUpdateOneWithoutRepliesNestedInput
-  replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
-  parentPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type PostCreateManyParentPostInput = {
+export type PostCreateManyParentInput = {
   id?: number
   title: string
   description: string
+  isPrivate?: boolean
   status?: $Enums.PublishStatus
   viewCount?: number
   popularity?: number
   creatorId: number
   areaId: number
   createdAt?: Date | string
+  publishedAt?: Date | string | null
 }
 
-export type PostUpdateWithoutParentPostInput = {
+export type PostUpdateWithoutParentInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUpdateManyWithoutParentNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   area?: Prisma.AreaUpdateOneRequiredWithoutPostsNestedInput
-  replies?: Prisma.PostUpdateManyWithoutParentPostNestedInput
   media?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUpdateManyWithoutPostNestedInput
 }
 
-export type PostUncheckedUpdateWithoutParentPostInput = {
+export type PostUncheckedUpdateWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replies?: Prisma.PostUncheckedUpdateManyWithoutParentPostNestedInput
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  replies?: Prisma.PostUncheckedUpdateManyWithoutParentNestedInput
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  comments?: Prisma.PostCommentUncheckedUpdateManyWithoutPostNestedInput
+  pins?: Prisma.PostPinUncheckedUpdateManyWithoutPostNestedInput
+  reports?: Prisma.PostReportUncheckedUpdateManyWithoutPostNestedInput
 }
 
-export type PostUncheckedUpdateManyWithoutParentPostInput = {
+export type PostUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPublishStatusFieldUpdateOperationsInput | $Enums.PublishStatus
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.FloatFieldUpdateOperationsInput | number
   creatorId?: Prisma.IntFieldUpdateOperationsInput | number
   areaId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1173,11 +1815,19 @@ export type PostUncheckedUpdateManyWithoutParentPostInput = {
 export type PostCountOutputType = {
   replies: number
   media: number
+  likes: number
+  comments: number
+  pins: number
+  reports: number
 }
 
 export type PostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   replies?: boolean | PostCountOutputTypeCountRepliesArgs
   media?: boolean | PostCountOutputTypeCountMediaArgs
+  likes?: boolean | PostCountOutputTypeCountLikesArgs
+  comments?: boolean | PostCountOutputTypeCountCommentsArgs
+  pins?: boolean | PostCountOutputTypeCountPinsArgs
+  reports?: boolean | PostCountOutputTypeCountReportsArgs
 }
 
 /**
@@ -1204,23 +1854,57 @@ export type PostCountOutputTypeCountMediaArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.PostMediaWhereInput
 }
 
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostLikeWhereInput
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostCommentWhereInput
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountPinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostPinWhereInput
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostReportWhereInput
+}
+
 
 export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   description?: boolean
+  isPrivate?: boolean
   status?: boolean
   viewCount?: boolean
   popularity?: boolean
+  parentId?: boolean
   creatorId?: boolean
   areaId?: boolean
-  parentPostId?: boolean
   createdAt?: boolean
+  publishedAt?: boolean
+  parent?: boolean | Prisma.Post$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.Post$repliesArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
-  parentPost?: boolean | Prisma.Post$parentPostArgs<ExtArgs>
-  replies?: boolean | Prisma.Post$repliesArgs<ExtArgs>
   media?: boolean | Prisma.Post$mediaArgs<ExtArgs>
+  likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Post$commentsArgs<ExtArgs>
+  pins?: boolean | Prisma.Post$pinsArgs<ExtArgs>
+  reports?: boolean | Prisma.Post$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
@@ -1230,45 +1914,57 @@ export type PostSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
+  isPrivate?: boolean
   status?: boolean
   viewCount?: boolean
   popularity?: boolean
+  parentId?: boolean
   creatorId?: boolean
   areaId?: boolean
-  parentPostId?: boolean
   createdAt?: boolean
+  publishedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "viewCount" | "popularity" | "creatorId" | "areaId" | "parentPostId" | "createdAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "isPrivate" | "status" | "viewCount" | "popularity" | "parentId" | "creatorId" | "areaId" | "createdAt" | "publishedAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  parent?: boolean | Prisma.Post$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.Post$repliesArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   area?: boolean | Prisma.AreaDefaultArgs<ExtArgs>
-  parentPost?: boolean | Prisma.Post$parentPostArgs<ExtArgs>
-  replies?: boolean | Prisma.Post$repliesArgs<ExtArgs>
   media?: boolean | Prisma.Post$mediaArgs<ExtArgs>
+  likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Post$commentsArgs<ExtArgs>
+  pins?: boolean | Prisma.Post$pinsArgs<ExtArgs>
+  reports?: boolean | Prisma.Post$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Post"
   objects: {
+    parent: Prisma.$PostPayload<ExtArgs> | null
+    replies: Prisma.$PostPayload<ExtArgs>[]
     creator: Prisma.$UserPayload<ExtArgs>
     area: Prisma.$AreaPayload<ExtArgs>
-    parentPost: Prisma.$PostPayload<ExtArgs> | null
-    replies: Prisma.$PostPayload<ExtArgs>[]
     media: Prisma.$PostMediaPayload<ExtArgs>[]
+    likes: Prisma.$PostLikePayload<ExtArgs>[]
+    comments: Prisma.$PostCommentPayload<ExtArgs>[]
+    pins: Prisma.$PostPinPayload<ExtArgs>[]
+    reports: Prisma.$PostReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
     description: string
+    isPrivate: boolean
     status: $Enums.PublishStatus
     viewCount: number
     popularity: number
+    parentId: number | null
     creatorId: number
     areaId: number
-    parentPostId: number | null
     createdAt: Date
+    publishedAt: Date | null
   }, ExtArgs["result"]["post"]>
   composites: {}
 }
@@ -1609,11 +2305,15 @@ readonly fields: PostFieldRefs;
  */
 export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  parent<T extends Prisma.Post$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$parentArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.Post$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   area<T extends Prisma.AreaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AreaDefaultArgs<ExtArgs>>): Prisma.Prisma__AreaClient<runtime.Types.Result.GetResult<Prisma.$AreaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  parentPost<T extends Prisma.Post$parentPostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$parentPostArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  replies<T extends Prisma.Post$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   media<T extends Prisma.Post$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likes<T extends Prisma.Post$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Post$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pins<T extends Prisma.Post$pinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$pinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reports<T extends Prisma.Post$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1646,13 +2346,15 @@ export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'Int'>
   readonly title: Prisma.FieldRef<"Post", 'String'>
   readonly description: Prisma.FieldRef<"Post", 'String'>
+  readonly isPrivate: Prisma.FieldRef<"Post", 'Boolean'>
   readonly status: Prisma.FieldRef<"Post", 'PublishStatus'>
   readonly viewCount: Prisma.FieldRef<"Post", 'Int'>
   readonly popularity: Prisma.FieldRef<"Post", 'Float'>
+  readonly parentId: Prisma.FieldRef<"Post", 'Int'>
   readonly creatorId: Prisma.FieldRef<"Post", 'Int'>
   readonly areaId: Prisma.FieldRef<"Post", 'Int'>
-  readonly parentPostId: Prisma.FieldRef<"Post", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly publishedAt: Prisma.FieldRef<"Post", 'DateTime'>
 }
     
 
@@ -1996,9 +2698,9 @@ export type PostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Post.parentPost
+ * Post.parent
  */
-export type Post$parentPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Post$parentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Post
    */
@@ -2060,6 +2762,102 @@ export type Post$mediaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.PostMediaScalarFieldEnum | Prisma.PostMediaScalarFieldEnum[]
+}
+
+/**
+ * Post.likes
+ */
+export type Post$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostLike
+   */
+  select?: Prisma.PostLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostLike
+   */
+  omit?: Prisma.PostLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostLikeInclude<ExtArgs> | null
+  where?: Prisma.PostLikeWhereInput
+  orderBy?: Prisma.PostLikeOrderByWithRelationInput | Prisma.PostLikeOrderByWithRelationInput[]
+  cursor?: Prisma.PostLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostLikeScalarFieldEnum | Prisma.PostLikeScalarFieldEnum[]
+}
+
+/**
+ * Post.comments
+ */
+export type Post$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostComment
+   */
+  select?: Prisma.PostCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostComment
+   */
+  omit?: Prisma.PostCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostCommentInclude<ExtArgs> | null
+  where?: Prisma.PostCommentWhereInput
+  orderBy?: Prisma.PostCommentOrderByWithRelationInput | Prisma.PostCommentOrderByWithRelationInput[]
+  cursor?: Prisma.PostCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostCommentScalarFieldEnum | Prisma.PostCommentScalarFieldEnum[]
+}
+
+/**
+ * Post.pins
+ */
+export type Post$pinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostPin
+   */
+  select?: Prisma.PostPinSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostPin
+   */
+  omit?: Prisma.PostPinOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostPinInclude<ExtArgs> | null
+  where?: Prisma.PostPinWhereInput
+  orderBy?: Prisma.PostPinOrderByWithRelationInput | Prisma.PostPinOrderByWithRelationInput[]
+  cursor?: Prisma.PostPinWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostPinScalarFieldEnum | Prisma.PostPinScalarFieldEnum[]
+}
+
+/**
+ * Post.reports
+ */
+export type Post$reportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostReport
+   */
+  select?: Prisma.PostReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostReport
+   */
+  omit?: Prisma.PostReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostReportInclude<ExtArgs> | null
+  where?: Prisma.PostReportWhereInput
+  orderBy?: Prisma.PostReportOrderByWithRelationInput | Prisma.PostReportOrderByWithRelationInput[]
+  cursor?: Prisma.PostReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostReportScalarFieldEnum | Prisma.PostReportScalarFieldEnum[]
 }
 
 /**

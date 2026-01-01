@@ -98,6 +98,26 @@ export type Post = Prisma.PostModel
  */
 export type PostMedia = Prisma.PostMediaModel
 /**
+ * Model PostLike
+ * 
+ */
+export type PostLike = Prisma.PostLikeModel
+/**
+ * Model PostComment
+ * 
+ */
+export type PostComment = Prisma.PostCommentModel
+/**
+ * Model PostPin
+ * 
+ */
+export type PostPin = Prisma.PostPinModel
+/**
+ * Model PostReport
+ * 
+ */
+export type PostReport = Prisma.PostReportModel
+/**
  * Model Board
  * 
  */
