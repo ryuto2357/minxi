@@ -1,15 +1,20 @@
-import type { JSX } from "react";
-import { useAuth } from "./AuthContext";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+import type { JSX } from "react";
 
 function PublicRoute({ children }: { children: JSX.Element }) {
-    const { user } = useAuth();
+  const { loading } = useAuth();
+  const token = localStorage.getItem("accessToken");
 
-    if (user) {
-        return <Navigate to="/feed" replace />;
-    }
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-    return children;
+  if (token) {
+    return <Navigate to="/feed" replace />;
+  }
+
+  return children;
 }
 
 export default PublicRoute;

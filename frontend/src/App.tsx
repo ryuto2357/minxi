@@ -5,6 +5,7 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import FeedPage from './pages/feed/FeedPage'
 import PublicRoute from './auth/PublicRoute'
 import RegisterPage from './pages/register/RegisterPage'
+import CreatePage from './pages/create/CreatePage'
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
               <FeedPage />
             </ProtectedRoute>
           } />
+          <Route path="/create" element={
+              <ProtectedRoute>
+                <CreatePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={
             <PublicRoute>
               <LoginPage />

@@ -30,8 +30,8 @@ function LoginPage() {
 
       // Expected backend response:
       // { accessToken, user }
-
-      login(data.accessToken, data.user);
+      console.log(data);
+      login(data.accessToken, data.refreshToken, data.user);
       navigate("/feed");
     } catch (err: any) {
       setError(err.message || "Login failed");
