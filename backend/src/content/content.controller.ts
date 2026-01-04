@@ -23,6 +23,7 @@ export class ContentController {
 
     @Get("feed")
     getFeed(@CurrentUser() user: AuthUser, @Query("page") page: string = "1", @Query("limit") limit: string = "10") {
+        type GetDataReturn = ReturnType<typeof this.contentService.getFeed>;
         return this.contentService.getFeed(user, +page, +limit);
     }
 

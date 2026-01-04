@@ -17,6 +17,7 @@ export class PostController {
 
     @Get("feed")
     getFeed(@CurrentUser() user: AuthUser, @Query("page") page: string = "1", @Query("limit") limit: string = "10") {
+        type GetDataReturn = ReturnType<typeof this.postService.getFeed>;
         return this.postService.getFeed(user, +page, +limit);
     }
 

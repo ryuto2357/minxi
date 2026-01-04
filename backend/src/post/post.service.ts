@@ -19,6 +19,7 @@ export class PostService {
 
                 creatorId: user.id,
                 areaId: user.areaId,
+                status: dto.status ?? "DRAFT",
 
                 media: dto.media ? {
                     create: dto.media
