@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,33 +6,33 @@
     background-color: #202020;
     border: 1px solid #444444;
     width: 30%;
-    min-width: 400px;
     margin: auto;
     padding: 40px;
     margin-top: 50px;
+    min-width: 400px;
     border-radius: 16px;
     color: #ffffff;
 }
 
-.login-container form {
+.register-container form {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.login-title {
+.register-title {
     font-size: 24px;
     font-weight: bold;
     /* margin-bottom: 20px; */
 }
 
-.login-container label {
+.register-container label {
     display: block;
     margin-bottom: 8px;
     font-size: 14px;
 }
 
-.login-container input {
+.register-container input {
     width: 100%;
     /* width: 90px; */
     padding: 10px;
@@ -44,7 +44,7 @@
     color: #ffffff;
 }
 
-.login-container select {
+.register-container select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -54,7 +54,7 @@
     color: #ffffff;
 }
 
-.login-container button {
+.register-container button {
     /* width: 280px; */
     width: 100%;
     padding: 10px;
@@ -67,17 +67,28 @@
     cursor: pointer;
 }
 
-.login-error {
+.register-error {
     color: lightcoral;
     min-height: 16px;
     margin: 0;
 }
 
-.login-not-error {
+.register-not-error {
     visibility: hidden;
     margin: 0;
 }
 
-.login-container a {
+.register-success {
+    color: lightgreen;
+    min-height: 16px;
+    margin: 0;
+}
+
+.register-not-success {
+    visibility: hidden;
+    margin: 0;
+}
+
+.register-container a {
     color: #c33354;
 }

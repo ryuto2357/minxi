@@ -17,6 +17,11 @@ function LoginPage() {
     e.preventDefault();
     setError("");
 
+    if (!username || !password) {
+        setError("Please fill all fields");
+        return;
+    }
+
     try {
       const data = await apiFetch("/auth/login", {
         method: "POST",
@@ -34,10 +39,8 @@ function LoginPage() {
   }
 
   return (
-    <div className="container">
-      <div className="title">Login</div>
-
-      {error ? <p className="error" style={{ color: "lightcoral" }}>{error}</p> : <p className="not-error">a</p>}
+    <div className="login-container">
+      <div className="login-title">Login</div>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
@@ -74,6 +77,8 @@ function LoginPage() {
       </form>
       <br />
       <div>Don't have an account? <Link to="/register">Register</Link></div>
+      <br />
+      {error ? <p className="login-error">{error}</p> : <p className="login-not-error">a</p>}
     </div>
   );
 }
